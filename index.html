@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>韓國旅遊&文化介紹</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://wikiwandv2-19431.kxcdn.com/_next/image?url=https:%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fb%2Fbe%2F%25EC%2597%25AD%25EC%2582%25AC%25EC%2586%258D%25EC%259C%25BC%25EB%25A1%259C.jpg%2F1500px-%25EC%2597%25AD%25EC%2582%25AC%25EC%2586%258D%25EC%259C%25BC%25EB%25A1%259C.jpg&w=1920&q=50');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        .page-transition {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .page-center {
+            transform: translateY(0);
+        }
+
+        .page-left {
+            transform: translateY(-100%);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>韓國旅遊&文化介紹</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="loadSection('首頁.html')">首頁</a></li>
+                <li><a href="#" onclick="loadSection('交通指南.html')">交通指南</a></li>
+                <li><a href="#" onclick="loadSection('美食推薦.html')">美食推薦</a></li>
+                <li><a href="#" onclick="loadSection('景點推薦.html')">景點推薦</a></li>
+                <li><a href="#" onclick="loadSection('住宿推薦.html')">住宿推薦</a></li>
+                <!-- 其他导航菜单项略 -->
+            </ul>
+        </nav>
+    </header>
+    <main id="mainContent">
+        <!-- 初始加载的内容 -->
+    </main>
+    <footer>
+        <p>&copy; 韓國旅遊&文化介紹</p>
+    </footer>
+    <script>
+        function loadSection(sectionUrl) {
+            var mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = '<div class="page-transition page-left" id="loading">加载中...</div>';
+
+            fetch(sectionUrl)
+            .then(response => response.text())
+            .then(data => {
+                mainContent.innerHTML = data;
+                var loadedSection = mainContent.querySelector('.page-transition');
+                setTimeout(function() {
+                    loadedSection.classList.remove('page-left');
+                    loadedSection.classList.add('page-center');
+                    loadedSection.scrollIntoView({ behavior: 'smooth' }); // 滚动到新加载的页面
+                }, 100);
+            })
+            .catch(error => console.error('Error loading section:', error));
+        }
+    </script>
+</body>
+</html>
